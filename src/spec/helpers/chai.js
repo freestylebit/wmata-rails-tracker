@@ -1,6 +1,5 @@
-'use strict';
 require('babel-register')({
-  extensions: ['.jsx']
+  extensions: ['.jsx'],
 });
 const chai = require('chai');
 

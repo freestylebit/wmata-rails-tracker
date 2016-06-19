@@ -1,20 +1,19 @@
-/*eslint-env mocha */
-'use strict';
+/* eslint-env mocha */
 
-const express = require('express'),
-      request = require('supertest'),
-         chai = require('chai');
+const express = require('express');
+const request = require('supertest');
+const chai = require('chai');
 
 const db = require('../db.js');
 
 chai.should();
 
-let app = express();
+const app = express();
+const routes = require('../routes.js')(db);
 
 
 describe('Application routes', () => {
   before(() => {
-    let routes = require('../routes.js')(db);
     app.use('/', routes);
   });
   it('should detect a valid page at site root.', (done) => {

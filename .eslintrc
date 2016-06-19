@@ -1,1 +1,7 @@
-"extends": "airbnb"
+{
+  "extends": "airbnb",
+  "rules": {
+    "max-len": [2, {"code": 100, "tabWidth": 2, "ignoreUrls": true}],
+    "new-cap": [2, { "capIsNewExceptions": ["Router"] }]
+  }
+}

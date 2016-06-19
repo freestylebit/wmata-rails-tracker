@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/freestylebit/wmata-rails-tracker#readme",
   "dependencies": {
+    "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.1",
     "chai": "^3.5.0",
     "dotenv": "^2.0.0",
@@ -29,6 +30,7 @@
     "envs": "^0.1.6",
     "express": "^4.14.0",
     "lodash": "^4.13.1",
+    "node-cron": "^1.1.1",
     "node-jsx": "^0.13.3",
     "node-redis": "^0.1.7",
     "path": "^0.12.7",

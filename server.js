@@ -1,13 +1,16 @@
 "use strict";
 
-const express = require('express'),
-      request = require('request'),
-   bodyParser = require('body-parser'),
-         path = require('path'),
-            _ = require('lodash');
+const express = require('express');
+const request = require('request');
+const bodyParser = require('body-parser');
+const path = require('path');
+const _ = require('lodash');
+const async = require('async');
+const cron = require('node-cron');
 
-const util = require('./src/util/util.js'),
-        db = require('./src/db.js');
+const util = require('./src/util/util.js');
+const db = require('./src/db.js');
+const wmata = require('./src/controllers/wmata.js');
 
 let app = express();
 app.use(bodyParser.urlencoded({
@@ -30,6 +33,44 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(3000, function () {
+
+app.listen(3000, () => {
   console.log('Go to http://localhost:3000!');
+});
+
+// Poll the WMATA for new data every minute.
+cron.schedule('* * * * *', () => {
+  wmata.get_metadata(db, () => {
+    console.log('WMATA metadata acquired');
+  });
+
+  // WMATA has set a one request per second limit on their API.
+  // The delays are set to somewhat circumvent this restriction.
+  let delay = 0;
+  let task;
+  // TODO: Refactor this to properly use callbacks.
+  _.map(['RD', 'BL', 'YL', 'OR', 'GR', 'SV'], (line) => {
+    task = setTimeout(() => {
+      console.log(line);
+      wmata.get_stations_list(db, line, (entry) => {
+        db.redis.get(`wmata_line_${line}`, (err, reply) => {
+          const payload = JSON.parse(reply);
+
+          let stationDelay = 0;
+          let stationTask;
+          _.map(payload.Path, (entry) => {
+            stationTask = setTimeout(() => {
+              wmata.get_station_status(db, entry.StationCode, () => {
+                console.log(entry.StationCode);
+              });
+            }, stationDelay);
+            clearInterval(stationTask);
+            stationDelay += 2000;
+          });
+        });
+      });
+    }, delay);
+    clearInterval(task);
+    delay += 30000;
+  });
 });

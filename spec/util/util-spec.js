@@ -10,8 +10,8 @@ describe('Helper function - ', () => {
     it('YL should yield Huntington to Fort Totten.', (done) => {
       let target = util.get_station_endpoints('YL');
 
-      target.start.should.equal('E06');
-      target.end.should.equal('C15');
+      target.start.should.equal('C15');
+      target.end.should.equal('E06');
       done();
     });
     it('BL should yield Franconia Springfield to Largo Town Center.', (done) => {
@@ -38,8 +38,8 @@ describe('Helper function - ', () => {
     it('GR should yield Greenbelt to Branch Ave.', (done) => {
       let target = util.get_station_endpoints('GR');
 
-      target.start.should.equal('E10');
-      target.end.should.equal('F11');
+      target.start.should.equal('F11');
+      target.end.should.equal('E10');
       done();
     });
     it('SV should yield Wiehle-Reston East to Largo Town Center.', (done) => {

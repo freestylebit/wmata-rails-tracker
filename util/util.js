@@ -1,4 +1,6 @@
 'use strict';
+const React = require('react'),
+   ReactDOM = require('react-dom/server');
 
 module.exports = {
   // code: RD, BL, YL, OR, GR, SV
@@ -34,8 +36,8 @@ module.exports = {
         break;
       case 'GR':
         endpoints = {
-          'start': 'E10',
-          'end': 'F11'
+          'start': 'F11',
+          'end': 'E10'
         };
         break;
       case 'SV':

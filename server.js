@@ -3,6 +3,7 @@
 const express = require('express'),
       request = require('request'),
    bodyParser = require('body-parser'),
+         path = require('path'),
             _ = require('lodash');
 
 const util = require('./util/util.js'),
@@ -13,6 +14,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 require('dotenv').config();
+require('node-jsx').install();
+
+
+// Set view path and templating engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Grabs all valid routes.
 app.use('/', require('./routes.js')(db));

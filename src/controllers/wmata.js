@@ -28,13 +28,13 @@ module.exports = {
     });
   },
   // Get real time status for a rail station.
-  get_station_status: (db, code, callback) => {
+  get_stations_status: (db, callback) => {
     const parameters = {
-      url: `https://api.wmata.com/StationPrediction.svc/json/GetPrediction/${code}?api_key=${process.env.WMATA_PRIMARY_KEY}`,
+      url: `https://api.wmata.com/StationPrediction.svc/json/GetPrediction/All?api_key=${process.env.WMATA_PRIMARY_KEY}`,
     };
     request(parameters, (error, response) => {
       console.log(response.body);
-      db.redis.set(`wmata_status_${code}`, response.body);
+      db.redis.set(`wmata_realtime_status`, response.body);
 
       callback();
     });

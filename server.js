@@ -51,26 +51,13 @@ cron.schedule('* * * * *', () => {
   // TODO: Refactor this to properly use callbacks.
   _.map(['RD', 'BL', 'YL', 'OR', 'GR', 'SV'], (line) => {
     task = setTimeout(() => {
-      console.log(line);
-      wmata.get_stations_list(db, line, (entry) => {
-        db.redis.get(`wmata_line_${line}`, (err, reply) => {
-          const payload = JSON.parse(reply);
-
-          let stationDelay = 0;
-          let stationTask;
-          _.map(payload.Path, (entry) => {
-            stationTask = setTimeout(() => {
-              wmata.get_station_status(db, entry.StationCode, () => {
-                console.log(entry.StationCode);
-              });
-            }, stationDelay);
-            clearInterval(stationTask);
-            stationDelay += 2000;
-          });
-        });
-      });
+      console.log(`WMATA station list for ${line} acquired`);
     }, delay);
     clearInterval(task);
-    delay += 60000;
+    delay += 2000;
   });
+
+  wmata.get_stations_status(db, () => {
+    console.log('WMATA real time predictions acquired');
+  })
 });

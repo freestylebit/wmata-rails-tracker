@@ -71,6 +71,6 @@ cron.schedule('* * * * *', () => {
       });
     }, delay);
     clearInterval(task);
-    delay += 30000;
+    delay += 60000;
   });
 });

@@ -7,9 +7,11 @@ module.exports = {
     let endpoints;
     switch(code) {
       case 'YL':
+        // Swap it around and API only sends data for 6 green line stations...
+        // ...for some reason...
         endpoints = {
-          'start': 'E06',
-          'end': 'C15'
+          'start': 'C15',
+          'end': 'E06'
         };
         break;
       case 'BL':

@@ -6,8 +6,8 @@ const express = require('express'),
          path = require('path'),
             _ = require('lodash');
 
-const util = require('./util/util.js'),
-        db = require('./db.js');
+const util = require('./src/util/util.js'),
+        db = require('./src/db.js');
 
 let app = express();
 app.use(bodyParser.urlencoded({
@@ -18,11 +18,11 @@ require('node-jsx').install();
 
 
 // Set view path and templating engine
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 
 // Grabs all valid routes.
-app.use('/', require('./routes.js')(db));
+app.use('/', require('./src/routes.js')(db));
 
 // Yields 404 if the user goes to non-existent path.
 app.use((req, res, next) => {

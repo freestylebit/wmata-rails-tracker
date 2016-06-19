@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "istanbul cover _mocha -- --recursive --require spec/helpers/chai.js ./spec",
-    "lint": "eslint ."
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",

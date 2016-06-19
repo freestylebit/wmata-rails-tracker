@@ -17,9 +17,14 @@ describe('Application routes', () => {
     let routes = require('../routes.js')(db);
     app.use('/', routes);
   });
-  it('should detect a valid page at root.', (done) => {
+  it('should detect a valid page at site root.', (done) => {
     request(app)
       .get('/')
       .expect(200, done);
+  });
+  it('should detect a valid page at root.', (done) => {
+    request(app)
+      .get('/non-existent-route')
+      .expect(404, done);
   });
 });

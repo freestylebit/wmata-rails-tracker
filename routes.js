@@ -8,7 +8,7 @@ const wmata = require('./controllers/wmata.js');
 module.exports = (db) => {
   let router = express.Router();
 
-  // Homepage.
+  // Homepage
   router.get('/', function (req, res) {
     wmata.set_metadata(db);
     db.redis.get('wmata_metadata', function(err, reply) {

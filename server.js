@@ -19,7 +19,7 @@ app.use('/', require('./routes.js')(db));
 
 // Yields 404 if the user goes to non-existent path.
 app.use((req, res, next) => {
-  res.status(404).send('Sorry cant find that!');
+  res.status(404).send('Page not found');
   next();
 });
 

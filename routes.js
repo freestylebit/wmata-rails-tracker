@@ -19,7 +19,7 @@ module.exports = (db) => {
 
   // Track individual line
   router.get('/line/:code', function (req, res) {
-    wmata.get_stations(db, req.params.code, () => {
+    wmata.get_stations_list(db, req.params.code, () => {
       if (req.params.code.length > 2) {
         res.send(404).done();
       }

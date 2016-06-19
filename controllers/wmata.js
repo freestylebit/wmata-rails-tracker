@@ -16,9 +16,22 @@ module.exports = {
       callback();
     });
   },
-  get_stations: (db, code, callback) => {
+  // Get a list of stations in order for a line.
+  // code: RD, BL, YL, OR, GR, SV
+  get_stations_list: (db, code, callback) => {
     let parameters = {
       url: 'https://api.wmata.com/Rail.svc/json/jPath?FromStationCode=C15&ToStationCode=E06&api_key=' + process.env.WMATA_PRIMARY_KEY
+    };
+    request(parameters, function (error, response) {
+      db.redis.set('wmata_line_' + code, response.body);
+
+      callback();
+    });
+  },
+  // Get real time status for a rail station.
+  get_station_status: (db, code, callback) => {
+    let parameters = {
+      url: 'https://api.wmata.com/StationPrediction.svc/json/GetPrediction/' + code + '&api_key=' + process.env.WMATA_PRIMARY_KEY
     };
     request(parameters, function (error, response) {
       db.redis.set('wmata_line_' + code, response.body);

@@ -2,10 +2,28 @@
 
 const React = require('react');
 
-class MyComponent extends React.Component {
-  render() {
-    return <div>Hello World!!!</div>;
+const MyComponent = React.createClass({
+  propTypes: {
+    title: React.PropTypes.string,
+    number: React.PropTypes.number,
+  },
+  getInitialState: function() {
+    return {secondsElapsed: 0};
+  },
+  tick: function() {
+    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+  },
+  componentDidMount: function() {
+    this.interval = setInterval(this.tick, 1000);
+  },
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
+  },
+  render: function() {
+    return (
+      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+    );
   }
-}
+});
 
 module.exports = MyComponent;

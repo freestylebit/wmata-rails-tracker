@@ -40,3 +40,4 @@ jspm_packages
 # Project-specific
 .env
 .DS_Store
+dist

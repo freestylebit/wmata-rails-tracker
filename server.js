@@ -24,6 +24,9 @@ require('node-jsx').install();
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 
+// Tap into physical directory for webpack assets
+app.use(express.static(__dirname + '/dist'));
+
 // Grabs all valid routes.
 app.use('/', require('./src/routes.js')(db));
 

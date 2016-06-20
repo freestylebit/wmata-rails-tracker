@@ -1,6 +1,21 @@
 const React = require('react');
 const $ = require('jquery');
 
+const Row = React.createClass({
+  render: function() {
+    return (
+      <div class="track__entry">
+        <div class="track__entry__label">
+          {this.props.label}
+        </div>
+        <div class="track__entry__flag">
+          {this.props.flag}
+        </div>
+      </div>
+    );
+  }
+});
+
 const Track = React.createClass({
   propTypes: {
     secondsElapsed: React.PropTypes.number,
@@ -17,7 +32,7 @@ const Track = React.createClass({
   },
   componentDidMount: function() {
     this.interval = setInterval(this.tick, 1000);
-    const url = `/v1/data/line/YL`;
+    const url = `/v1/data/track/YL`;
     $.ajax({url: url, success: function(result){
       console.log(result);
     }});
@@ -26,6 +41,7 @@ const Track = React.createClass({
     clearInterval(this.interval);
   },
   render: function() {
+
     return (
       <div>
         <p>Seconds Elapsed: {this.state.secondsElapsed}</p>

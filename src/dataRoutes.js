@@ -53,19 +53,19 @@ module.exports = (db) => {
 
         _.map(line.Path, (data) => {
           // Construct metadata and each station's status
-          sequence[data.StationCode] = {
-            name: data.StationName
+          sequence[data.SeqNum] = {
+            name: data.StationName,
+            code: data.StationCode
           }
 
-          sequence[data.StationCode].status = 0;
-          if (statuses[data.StationCode]) {
-            if (_.indexOf(statuses[data.StationCode], '1') > -1 || _.indexOf(statuses[data.StationCode], '2') > -1) {
-              sequence[data.StationCode].status = 1;
-            }
-            if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 || _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
-              sequence[data.StationCode].status = 2;
-            }
+          sequence[data.SeqNum].status = 0;
+          if (_.indexOf(statuses[data.StationCode], '1') > -1 || _.indexOf(statuses[data.StationCode], '2') > -1) {
+            sequence[data.SeqNum].status = 1;
           }
+          if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 || _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
+            sequence[data.SeqNum].status = 2;
+          }
+
         });
         res.status(200).json(sequence);
       });

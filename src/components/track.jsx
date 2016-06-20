@@ -3,8 +3,7 @@ const $ = require('jquery');
 
 const Track = React.createClass({
   propTypes: {
-    title: React.PropTypes.string,
-    number: React.PropTypes.number,
+    secondsElapsed: React.PropTypes.number,
   },
   getInitialState: function() {
     return {
@@ -12,7 +11,9 @@ const Track = React.createClass({
     };
   },
   tick: function() {
-    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+    this.setState({
+      secondsElapsed: this.state.secondsElapsed + 1}
+    );
   },
   componentDidMount: function() {
     this.interval = setInterval(this.tick, 1000);

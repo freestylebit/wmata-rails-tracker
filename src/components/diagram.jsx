@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react');
 
 const MyComponent = React.createClass({
@@ -8,7 +6,9 @@ const MyComponent = React.createClass({
     number: React.PropTypes.number,
   },
   getInitialState: function() {
-    return {secondsElapsed: 0};
+    return {
+      secondsElapsed: 1
+    };
   },
   tick: function() {
     this.setState({secondsElapsed: this.state.secondsElapsed + 1});

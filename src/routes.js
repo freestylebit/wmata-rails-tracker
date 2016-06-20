@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 const express = require('express');
 const React = require('react');
 const ReactDOM = require('react-dom/server');
@@ -27,6 +26,7 @@ module.exports = (db) => {
   });
 
   router.get('/derp', (req, res) => {
+    // TODO: Figure out why this is failing istanbul
     const html = ReactDOM.renderToString(<MyComponent />);
 
     res.render('index.ejs', { html: html });

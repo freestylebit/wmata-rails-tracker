@@ -58,12 +58,13 @@ module.exports = (db) => {
             code: data.StationCode
           }
 
-          sequence[data.SeqNum].status = 0;
+          // TODO: Put in something a little more prettier (maybe font-awesome)
+          sequence[data.SeqNum].status = '-';
           if (_.indexOf(statuses[data.StationCode], '1') > -1 || _.indexOf(statuses[data.StationCode], '2') > -1) {
-            sequence[data.SeqNum].status = 1;
+            sequence[data.SeqNum].status = 'Incoming';
           }
           if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 || _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
-            sequence[data.SeqNum].status = 2;
+            sequence[data.SeqNum].status = 'Boarding';
           }
 
         });

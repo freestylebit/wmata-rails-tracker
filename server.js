@@ -43,25 +43,25 @@ app.listen(3000, () => {
 });
 
 // Poll the WMATA for new data every minute.
-// cron.schedule('*/15 * * * * *', () => {
-//   wmata.get_metadata(db, () => {
-//     console.log('WMATA metadata acquired');
-//   });
+cron.schedule('*/15 * * * * *', () => {
+  wmata.get_metadata(db, () => {
+    console.log('WMATA metadata acquired');
+  });
 
-//   // WMATA has set a one request per second limit on their API.
-//   // The delays are set to somewhat circumvent this restriction.
-//   let delay = 0;
-//   let task;
-//   // TODO: Refactor this to properly use callbacks.
-//   _.map(['RD', 'BL', 'YL', 'OR', 'GR', 'SV'], (line) => {
-//     task = setTimeout(() => {
-//       console.log(`WMATA station list for ${line} acquired`);
-//     }, delay);
-//     clearInterval(task);
-//     delay += 2000;
-//   });
+  // WMATA has set a one request per second limit on their API.
+  // The delays are set to somewhat circumvent this restriction.
+  let delay = 0;
+  let task;
+  // TODO: Refactor this to properly use callbacks.
+  _.map(['RD', 'BL', 'YL', 'OR', 'GR', 'SV'], (line) => {
+    task = setTimeout(() => {
+      console.log(`WMATA station list for ${line} acquired`);
+    }, delay);
+    clearInterval(task);
+    delay += 2000;
+  });
 
-//   wmata.get_stations_status(db, () => {
-//     console.log('WMATA real time predictions acquired');
-//   })
-// });
+  wmata.get_stations_status(db, () => {
+    console.log('WMATA real time predictions acquired');
+  })
+});

@@ -17,24 +17,17 @@ const Row = React.createClass({
   }
 });
 
+
 const Track = React.createClass({
   propTypes: {
-    secondsElapsed: React.PropTypes.number,
     data: React.PropTypes.object
   },
   getInitialState: function() {
     return {
-      secondsElapsed: 0,
       data: {}
     };
   },
-  tick: function() {
-    this.setState({
-      secondsElapsed: this.state.secondsElapsed + 1
-    });
-  },
   componentDidMount: function() {
-    this.interval = setInterval(this.tick, 1000);
     const url = `/v1/data/track/YL`;
     setInterval(() => {
       $.ajax({
@@ -55,8 +48,7 @@ const Track = React.createClass({
     });
 
     return (
-      <div>
-        <p>Seconds Elapsed: {this.state.secondsElapsed}</p>
+      <div class="track">
         {content}
       </div>
     );

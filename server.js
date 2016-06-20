@@ -43,7 +43,7 @@ app.listen(3000, () => {
 });
 
 // Poll the WMATA for new data every minute.
-cron.schedule('*/15 * * * * *', () => {
+cron.schedule('* * * * *', () => {
   wmata.get_metadata(db, () => {
     console.log('WMATA metadata acquired');
   });

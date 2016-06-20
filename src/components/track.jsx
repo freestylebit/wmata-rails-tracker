@@ -20,15 +20,17 @@ const Row = React.createClass({
 
 const Track = React.createClass({
   propTypes: {
+    code: React.PropTypes.string,
     data: React.PropTypes.object
   },
   getInitialState: function() {
     return {
+      code: 'YL',
       data: {}
     };
   },
   componentDidMount: function() {
-    const url = `/v1/data/track/YL`;
+    const url = `/v1/data/track/${window.line_code}`;
     setInterval(() => {
       $.ajax({
         url: url, success: function(result) {
@@ -48,7 +50,7 @@ const Track = React.createClass({
     });
 
     return (
-      <div class="track">
+      <div className="track">
         {content}
       </div>
     );

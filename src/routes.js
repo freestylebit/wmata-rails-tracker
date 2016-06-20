@@ -16,20 +16,12 @@ module.exports = (db) => {
 
   // Track individual line
   router.get('/line/:code', (req, res) => {
-    if (req.params.code.length > 2) {
-      res.status(404).send('Page not found');
-      return;
-    }
-    db.redis.get(`wmata_line_${req.params.code}`, (err, reply) => {
-      res.status(200).json(JSON.parse(reply));
-    });
-  });
-
-  router.get('/derp', (req, res) => {
     // TODO: Figure out why this is failing istanbul
-    const html = ReactDOM.renderToString(<Track />);
+    const html = ReactDOM.renderToString(<Track code={req.params.code} />);
 
-    res.render('index.ejs', { html: html });
+    res.render('index.ejs', {
+      html: html, code: req.params.code
+    });
   });
 
   return router;

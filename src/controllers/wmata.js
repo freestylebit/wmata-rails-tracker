@@ -33,8 +33,7 @@ module.exports = {
       url: `https://api.wmata.com/StationPrediction.svc/json/GetPrediction/All?api_key=${process.env.WMATA_PRIMARY_KEY}`,
     };
     request(parameters, (error, response) => {
-      console.log(response.body);
-      db.redis.set(`wmata_realtime_status`, response.body);
+      db.redis.set('wmata_realtime_status', response.body);
 
       callback();
     });

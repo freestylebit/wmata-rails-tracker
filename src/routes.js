@@ -2,11 +2,8 @@
 const express = require('express');
 const React = require('react');
 const ReactDOM = require('react-dom/server');
-const _ = require('lodash');
 
 const MyComponent = require('./components/diagram.jsx');
-
-const wmata = require('./controllers/wmata.js');
 
 module.exports = (db) => {
   const router = express.Router();

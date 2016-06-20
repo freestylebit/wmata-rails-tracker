@@ -1,6 +1,6 @@
 const React = require('react');
 
-const MyComponent = React.createClass({
+const Track = React.createClass({
   propTypes: {
     title: React.PropTypes.string,
     number: React.PropTypes.number,
@@ -26,4 +26,4 @@ const MyComponent = React.createClass({
   }
 });
 
-module.exports = MyComponent;
+module.exports = Track;

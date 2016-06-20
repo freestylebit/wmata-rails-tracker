@@ -21,7 +21,9 @@ const Track = React.createClass({
   },
   render: function() {
     return (
-      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+      <div>
+        <p>Seconds Elapsed: {this.state.secondsElapsed}</p>
+      </div>
     );
   }
 });

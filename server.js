@@ -29,6 +29,7 @@ app.use(express.static(__dirname + '/dist'));
 
 // Grabs all valid routes.
 app.use('/', require('./src/routes.js')(db));
+app.use('/v1/data', require('./src/dataRoutes.js')(db));
 
 // Yields 404 if the user goes to non-existent path.
 app.use((req, res, next) => {

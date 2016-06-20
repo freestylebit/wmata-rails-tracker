@@ -11,6 +11,7 @@ let config = {
     'vendor': [
       'react',
       'react-dom',
+      'jquery',
       'lodash'
     ],
 

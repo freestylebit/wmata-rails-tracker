@@ -1,4 +1,5 @@
 const React = require('react');
+const $ = require('jquery');
 
 const Track = React.createClass({
   propTypes: {
@@ -15,6 +16,10 @@ const Track = React.createClass({
   },
   componentDidMount: function() {
     this.interval = setInterval(this.tick, 1000);
+    const url = `/v1/data/line/YL`;
+    $.ajax({url: url, success: function(result){
+      console.log(result);
+    }});
   },
   componentWillUnmount: function() {
     clearInterval(this.interval);

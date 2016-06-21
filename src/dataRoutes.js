@@ -1,6 +1,4 @@
 const express = require('express');
-const React = require('react');
-const ReactDOM = require('react-dom/server');
 const _ = require('lodash');
 
 module.exports = (db) => {
@@ -33,7 +31,7 @@ module.exports = (db) => {
 
     // TODO: Move this to the CRON job and create a cache entry in redis
     // so we're not regenerating this dataset every time we ping the server.
-    db.redis.get('wmata_realtime_status', (err, reply) => {
+    db.redis.get('wmata_realtime_status', (errorRealtime, reply) => {
       // Organize realtime data into a format we can use.
       const payload = JSON.parse(reply);
       let statuses = {};
@@ -47,31 +45,31 @@ module.exports = (db) => {
       });
 
       // Query the data for this line
-      db.redis.get(`wmata_line_${req.params.code}`, (err, reply) => {
-        const line = JSON.parse(reply);
-        let sequence = {}
+      db.redis.get(`wmata_line_${req.params.code}`, (errorLine, lineData) => {
+        const line = JSON.parse(lineData);
+        let sequence = {};
 
         _.map(line.Path, (data) => {
           // Construct metadata and each station's status
           sequence[data.SeqNum] = {
             name: data.StationName,
-            code: data.StationCode
-          }
+            code: data.StationCode,
+          };
 
           // TODO: Put in something a little more prettier (maybe font-awesome)
           sequence[data.SeqNum].status = '-';
-          if (_.indexOf(statuses[data.StationCode], '1') > -1 || _.indexOf(statuses[data.StationCode], '2') > -1) {
+          if (_.indexOf(statuses[data.StationCode], '1') > -1 ||
+              _.indexOf(statuses[data.StationCode], '2') > -1) {
             sequence[data.SeqNum].status = 'Incoming';
           }
-          if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 || _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
+          if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 ||
+              _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
             sequence[data.SeqNum].status = 'Boarding';
           }
-
         });
         res.status(200).json(sequence);
       });
     });
-
   });
 
   return router;

@@ -46,7 +46,7 @@ const Track = React.createClass({
   },
   render: function() {
     let content = _.map(this.state.data, (data) => {
-      return (<Row label={data.name} flag={data.status} />);
+      return (<Row label={data.name} flag={data.status} key={data.name} />);
     });
 
     return (

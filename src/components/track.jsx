@@ -2,6 +2,8 @@ const React = require('react');
 const _ = require('lodash');
 const $ = require('jquery');
 
+require('./track.scss');
+
 const Row = React.createClass({
   render: function() {
     return (

@@ -9,6 +9,11 @@ module.exports = (db) => {
   // Metadata endpoint
   router.get('/', (req, res) => {
     db.redis.get('wmata_metadata', (err, reply) => {
+      if (!reply) {
+        res.status(400).json({ error: 'NO DATA' });
+        return;
+      }
+
       res.status(200).json(JSON.parse(reply));
     });
   });
@@ -20,6 +25,11 @@ module.exports = (db) => {
       return;
     }
     db.redis.get(`wmata_line_${req.params.code}`, (err, reply) => {
+      if (!reply) {
+        res.status(400).json({ error: 'NO DATA' });
+        return;
+      }
+
       res.status(200).json(JSON.parse(reply));
     });
   });
@@ -53,6 +63,11 @@ module.exports = (db) => {
 
       // Query the data for this line
       db.redis.get(`wmata_line_${req.params.code}`, (errorLine, lineData) => {
+        if (!lineData) {
+          res.status(400).json({ error: 'NO DATA' });
+          return;
+        }
+
         const line = JSON.parse(lineData);
         let sequence = {};
 

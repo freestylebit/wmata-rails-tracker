@@ -5,12 +5,15 @@
   </head>
   <body>
     <h1 id="main-title">WMATA train tracker</h1>
-    <div id="react-main-mount">
-      <%- html %>
-    </div>
+    <p>Determine the location of trains on a WMATA.  Choose a line below.</p>
 
-    <script>window.line_code = '<%- code %>';</script>
-    <script src="/bundle--vendor.js"></script>
-    <script src="/bundle--components.js"></script>
+    <div>
+      <a href="/line/RD">Red</a>
+      <a href="/line/YL">Yellow</a>
+      <a href="/line/BL">Blue</a>
+      <a href="/line/GR">Green</a>
+      <a href="/line/OR">Orange</a>
+      <a href="/line/SV">Silver</a>
+    </div>
   </body>
 </html>

@@ -82,11 +82,11 @@ module.exports = (db) => {
           sequence[data.SeqNum].status = '-';
           if (_.indexOf(statuses[data.StationCode], '1') > -1 ||
               _.indexOf(statuses[data.StationCode], '2') > -1) {
-            sequence[data.SeqNum].status = 'Incoming';
+            sequence[data.SeqNum].status = 'incoming';
           }
           if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 ||
               _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
-            sequence[data.SeqNum].status = 'Boarding';
+            sequence[data.SeqNum].status = 'boarding';
           }
         });
         res.status(200).json(sequence);

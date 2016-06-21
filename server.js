@@ -52,6 +52,7 @@ cron.schedule('*/15 * * * * *', () => {
 // Helper functions
 // TODO: Move this somewhere else.
 function query_wmata() {
+  return;
   wmata.get_metadata(db, () => {
     console.log('WMATA metadata acquired');
   });

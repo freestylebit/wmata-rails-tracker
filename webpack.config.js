@@ -20,7 +20,6 @@ let config = {
   },
   output: {
     path: './dist',
-    publicPath: 'dist/',
     filename: 'bundle--[name].js',
   },
   module: {
@@ -61,6 +60,9 @@ let config = {
         loader: 'file?name=/fonts/[name].[ext]'
       }
     ]
+  },
+  sassLoader: {
+    includePaths: [path.resolve(__dirname, "./src/theme/")]
   },
   plugins: [
     // Pro-tip: Order matters here.

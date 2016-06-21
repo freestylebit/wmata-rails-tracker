@@ -1,0 +1,9 @@
+/**
+ * _vendor.scss
+ *
+ * Contains global styles for entire site.
+ */
+
+// Set up webpack integration for font-awesome.
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';

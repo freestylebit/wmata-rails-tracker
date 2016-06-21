@@ -48,5 +48,12 @@ describe('Helper function - ', () => {
       target.end.should.equal('G05');
       done();
     });
+    it('Invalid line should yield a blank object.', (done) => {
+      const target = util.get_station_endpoints('AA');
+
+      target.start.should.equal('');
+      target.end.should.equal('');
+      done();
+    });
   });
 });

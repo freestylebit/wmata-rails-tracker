@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const _ = require('lodash');
 
@@ -32,6 +34,11 @@ module.exports = (db) => {
     // TODO: Move this to the CRON job and create a cache entry in redis
     // so we're not regenerating this dataset every time we ping the server.
     db.redis.get('wmata_realtime_status', (errorRealtime, reply) => {
+      if (!reply) {
+        res.status(400).json({ error: 'NO DATA' });
+        return;
+      }
+
       // Organize realtime data into a format we can use.
       const payload = JSON.parse(reply);
       let statuses = {};

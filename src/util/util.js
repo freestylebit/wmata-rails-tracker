@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   // code: RD, BL, YL, OR, GR, SV
   get_station_endpoints(code) {

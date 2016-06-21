@@ -47,6 +47,7 @@
     "react-dom": "^15.1.0",
     "react-jsx": "^1.0.0",
     "redis": "^2.6.2",
+    "redis-mock": "^0.9.0",
     "request": "^2.72.0",
     "webpack": "^1.13.1"
   },

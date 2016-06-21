@@ -21,8 +21,6 @@ module.exports = (db) => {
     res.render('line.ejs', {
       html: html,
       container: 'track-status',
-      // TODO: See if we can drop this in a better way...
-      scripts: '<script src="/bundle--components.js"></script>',
       code: req.params.code,
     });
   });

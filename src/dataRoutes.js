@@ -8,7 +8,7 @@ module.exports = (db) => {
 
   // Metadata endpoint
   router.get('/', (req, res) => {
-    db.redis.get('wmata_metadata', (err, reply) => {
+    db.query('wmata_metadata', (reply) => {
       res.status(200).json(JSON.parse(reply));
     });
   });
@@ -19,7 +19,7 @@ module.exports = (db) => {
       res.status(404).send('Page not found');
       return;
     }
-    db.redis.get(`wmata_line_${req.params.code}`, (err, reply) => {
+    db.query(`wmata_line_${req.params.code}`, (reply) => {
       res.status(200).json(JSON.parse(reply));
     });
   });
@@ -33,14 +33,8 @@ module.exports = (db) => {
 
     // TODO: Move this to the CRON job and create a cache entry in redis
     // so we're not regenerating this dataset every time we ping the server.
-    db.redis.get('wmata_realtime_status', (errorRealtime, reply) => {
-      if (!reply) {
-        res.status(400).json({ error: 'NO DATA' });
-        return;
-      }
-
+    db.query('wmata_realtime_status', (payload) => {
       // Organize realtime data into a format we can use.
-      const payload = JSON.parse(reply);
       let statuses = {};
 
       _.map(payload.Trains, (data) => {
@@ -52,8 +46,7 @@ module.exports = (db) => {
       });
 
       // Query the data for this line
-      db.redis.get(`wmata_line_${req.params.code}`, (errorLine, lineData) => {
-        const line = JSON.parse(lineData);
+      db.query(`wmata_line_${req.params.code}`, (line) => {
         let sequence = {};
 
         _.map(line.Path, (data) => {

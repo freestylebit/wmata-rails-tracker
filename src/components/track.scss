@@ -5,15 +5,22 @@ body {
 }
 
 .track {
-  width: 50%;
+  width: 445px;
+  margin: 0 auto;
 
   &__entry {
     clear: both;
     display: block;
 
+    &:hover div {
+      background-color: #CCC;
+    }
+
     > div {
+      transition: background-color 200ms linear;
+
       border-top: 1px solid #CCC;
-      padding: 5px;
+      padding: 10px 5px;
       float: left;
       display: block;
     }
@@ -25,12 +32,12 @@ body {
       width: 25px;
     }
     &__label {
-      width: 300px;
+      width: 400px;
     }
   }
 }
 
 /* Explicitly used to show a train approaching a station. */
 .approaching {
-  color: #777;
+  color: #ABABAB;
 }

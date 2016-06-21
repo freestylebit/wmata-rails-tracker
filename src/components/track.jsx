@@ -58,7 +58,7 @@ const Track = React.createClass({
       let status;
       switch (data.status) {
         case 'incoming':
-          status = 'fa-train GREY';
+          status = 'fa-train approaching';
           break;
         case 'boarding':
           status = 'fa-train';

@@ -40,9 +40,12 @@ app.use((req, res, next) => {
 // Do an initial poll of WMATA's API prior to running any endpoints.
 query_wmata();
 
+// Kickstart the server!
 app.listen(3000, () => {
   console.log('Go to http://localhost:3000!');
 });
+
+
 
 // Poll the WMATA for new data every minute.
 cron.schedule('*/15 * * * * *', () => {

@@ -80,11 +80,13 @@ const Track = React.createClass({
     });
 
     return (
-      <div className="track">
-        {content}
-      </div>
-      <div className="disclaimer">
-        * Directions are assumed to be consistent day-to-day.  The system does not account for single tracking or other delays that might impact the direction the trains are going.  This will be incorporated in a future version of this tracker.
+      <div>
+        <div className="track">
+          {content}
+        </div>
+        <div className="disclaimer">
+          * Directions are assumed to be consistent day-to-day.  The system does not account for single tracking or other delays that might impact the direction the trains are going.  This will be incorporated in a future version of this tracker.
+        </div>
       </div>
     );
   }

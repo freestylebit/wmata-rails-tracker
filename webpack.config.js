@@ -17,6 +17,7 @@ let config = {
     ],
 
     // Auto-detect all components in directory.
+    // TODO: Split this out even more...
     'components': glob.sync('./src/**/render.jsx'),
   },
   output: {

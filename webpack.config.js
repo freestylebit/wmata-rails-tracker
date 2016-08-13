@@ -1,6 +1,7 @@
 'use strict';
 
 const webpack = require('webpack'),
+      autoprefixer = require('autoprefixer'),
       glob = require('glob'),
       path = require('path');
 
@@ -64,6 +65,7 @@ let config = {
   sassLoader: {
     includePaths: [path.resolve(__dirname, "./src/theme/")]
   },
+  postcss: [ autoprefixer({ browsers: ['last 12 versions'] }) ],
   plugins: [
     // Pro-tip: Order matters here.
     new webpack.optimize.CommonsChunkPlugin(['components', 'vendor'], 'bundle--[name].js'),

@@ -73,7 +73,7 @@ const Track = React.createClass({
 
       // Dictate arrows to denote direction train is going in.
       // TODO: The train icons should really have its own columns...
-      let direction = (data.direction == 1) ? 'up' : 'down';
+      let direction = (data.direction == 2) ? 'up' : 'down';
       if (!status) direction = '';
 
       return (<Row label={data.name} direction={direction} flag={status} key={data.name} />);

@@ -10,8 +10,9 @@ const Row = React.createClass({
   render: function() {
     return (
       <div className="track__entry">
-        <div className="track__entry__flag">
-          <i className={`fa ${this.props.flag}`} aria-hidden="true"></i>
+        <div className={`track__entry__flag ${this.props.direction}`}>
+          <i className={`fa ${this.props.flag}`} aria-hidden="true" />
+          <i className={`fa fa-arrow-${this.props.direction}`} aria-hidden="true" />
         </div>
         <div className="track__entry__label">
           {this.props.label}
@@ -45,7 +46,8 @@ const Track = React.createClass({
   getData: function() {
     const url = `/v1/data/track/${window.line_code}`;
     $.ajax({
-      url: url, success: function(result) {
+      url: url,
+      success: function(result) {
         this.setState({
           data: result
         });
@@ -54,7 +56,8 @@ const Track = React.createClass({
   },
   render: function() {
     let content = _.map(this.state.data, (data) => {
-      // Convert statuses to font-awesome flags
+      // Convert statuses to font-awesome flags to dictate a train is at
+      // the station.
       let status;
       switch (data.status) {
         case 'incoming':
@@ -67,7 +70,13 @@ const Track = React.createClass({
           // No status needed.
           break;
       }
-      return (<Row label={data.name} flag={status} key={data.name} />);
+
+      // Dictate arrows to denote direction train is going in.
+      // TODO: The train icons should really have its own columns...
+      let direction = (data.direction == 1) ? 'up' : 'down';
+      if (!status) direction = '';
+
+      return (<Row label={data.name} direction={direction} flag={status} key={data.name} />);
     });
 
     return (

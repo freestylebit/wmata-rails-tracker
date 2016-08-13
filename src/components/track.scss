@@ -25,10 +25,20 @@
     }
 
     &__flag {
-      width: 25px;
+      width: 100px;
+
+      &.down {
+        i:first-child {
+          margin-left: 55px;
+        }
+      }
+
+      i {
+        margin: 0 5px;
+      }
     }
     &__label {
-      width: 400px;
+      width: 325px;
     }
   }
 }

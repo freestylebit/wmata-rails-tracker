@@ -58,7 +58,10 @@ module.exports = (db) => {
         if (!statuses[data.LocationCode]) {
           statuses[data.LocationCode] = [];
         }
-        statuses[data.LocationCode].push(data.Min);
+        statuses[data.LocationCode].push({
+          minutes: data.Min,
+          direction: data.Group
+        });
       });
 
       // Query the data for this line
@@ -70,25 +73,32 @@ module.exports = (db) => {
 
         const line = JSON.parse(lineData);
         let sequence = {};
-
+console.log('----------');
         _.map(line.Path, (data) => {
           // Construct metadata and each station's status
           sequence[data.SeqNum] = {
             name: data.StationName,
-            code: data.StationCode,
+            code: data.StationCode
           };
+
+          // Skip if entry doesn't exist.
+          if (!statuses[data.StationCode]) {
+            return;
+          }
 
           // TODO: Put in something a little more prettier (maybe font-awesome)
           sequence[data.SeqNum].status = '-';
-          if (_.indexOf(statuses[data.StationCode], '1') > -1 ||
-              _.indexOf(statuses[data.StationCode], '2') > -1) {
+          sequence[data.SeqNum].direction = statuses[data.StationCode][0].direction;
+          if (statuses[data.StationCode][0].minutes == 1 ||
+              statuses[data.StationCode][0].minutes == 2) {
             sequence[data.SeqNum].status = 'incoming';
           }
-          if (_.indexOf(statuses[data.StationCode], 'BRD') > -1 ||
-              _.indexOf(statuses[data.StationCode], 'ARR') > -1) {
+          if (statuses[data.StationCode][0].minutes == 'BRD' ||
+              statuses[data.StationCode][0].minutes == 'ARR') {
             sequence[data.SeqNum].status = 'boarding';
           }
         });
+        console.log(sequence);
         res.status(200).json(sequence);
       });
     });

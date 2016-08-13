@@ -7,15 +7,22 @@
   &__entry {
     clear: both;
     display: block;
-    border-radius: 5px;
 
     &:hover div {
       background-color: #CCC;
+      transition: background-color 200ms linear;
+
+      &:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      &:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
     }
 
     > div {
-      transition: background-color 200ms linear;
-
       padding: 10px 5px;
       float: left;
       display: block;

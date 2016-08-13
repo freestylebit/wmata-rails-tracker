@@ -81,7 +81,7 @@ const Track = React.createClass({
 
     return (
       <div>
-        <div className="track">
+        <div className={`track track__color_${window.line_code}`}>
           {content}
         </div>
         <div className="disclaimer">

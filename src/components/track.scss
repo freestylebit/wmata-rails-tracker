@@ -4,6 +4,15 @@
   width: 445px;
   margin: 0 auto;
 
+  &__color {
+    &_RD i { color: #bf1138; }
+    &_YL i { color: #f9d716; }
+    &_BL i { color: #0a93d6; }
+    &_OR i { color: #dd8703; }
+    &_GR i { color: #00ae51; }
+    &_SV i { color: #a1a3a1; }
+  }
+
   &__entry {
     clear: both;
     display: block;
@@ -58,5 +67,5 @@
 
 /* Explicitly used to show a train approaching a station. */
 .approaching {
-  color: #ABABAB;
+  opacity: 0.2;
 }

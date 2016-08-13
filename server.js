@@ -46,7 +46,7 @@ app.listen(3000, () => {
 
 // Poll the WMATA for new data every minute.
 cron.schedule('*/15 * * * * *', () => {
-  query_wmata();
+  //query_wmata();
 });
 
 // Helper functions

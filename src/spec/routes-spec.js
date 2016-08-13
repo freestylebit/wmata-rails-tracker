@@ -14,6 +14,11 @@ chai.should();
 
 const app = express();
 
+// Set views/ directory especially for the following test suites.
+app.set('views', __dirname + '/../views');
+app.set('view engine', 'ejs');
+
+
 describe('Application routes', () => {
   before(() => {
     const routes = require('../routes.js')(db);

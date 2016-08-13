@@ -21,7 +21,7 @@ require('node-jsx').install();
 
 
 // Set view path and templating engine
-app.set('views', path.join(__dirname, 'src/views'));
+app.set('views', __dirname + '/src/views');
 app.set('view engine', 'ejs');
 
 // Tap into physical directory for webpack assets

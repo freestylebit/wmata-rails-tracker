@@ -1,8 +1,28 @@
+@import '_vendor.scss';
+@import '_global.scss';
 
 .index {
-  text-align: center;
   a {
-
+    width: 445px;
+    margin: 0.25rem auto;
+    padding: 1rem;
+    text-align: center;
+    opacity: 0.8;
+    border-radius: 10px;
+    color: #000;
     display: block;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.track_link {
+      &_RD { background-color: $color--RD; }
+      &_BL { background-color: $color--BL; }
+      &_YL { background-color: $color--YL; }
+      &_SV { background-color: $color--SV; }
+      &_OR { background-color: $color--OR; }
+      &_GR { background-color: $color--GR; }
+    }
   }
 }

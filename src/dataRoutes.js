@@ -73,7 +73,7 @@ module.exports = (db) => {
 
         const line = JSON.parse(lineData);
         let sequence = {};
-console.log('----------');
+
         _.map(line.Path, (data) => {
           // Construct metadata and each station's status
           sequence[data.SeqNum] = {
@@ -98,7 +98,6 @@ console.log('----------');
             sequence[data.SeqNum].status = 'boarding';
           }
         });
-        console.log(sequence);
         res.status(200).json(sequence);
       });
     });

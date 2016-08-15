@@ -92,6 +92,7 @@ describe('Data routes', () => {
   });
 
   it('should yield red line data at /v1/data/track/RD/.', (done) => {
+    fakeRedis.set('wmata_metadata', JSON.stringify(require('./fixtures/wmata_metadata.json')));
     fakeRedis.set('wmata_realtime_status', JSON.stringify(require('./fixtures/wmata_realtime_status.json')));
     fakeRedis.set('wmata_line_RD', JSON.stringify(require('./fixtures/wmata_line_RD.json')));
 
@@ -99,7 +100,7 @@ describe('Data routes', () => {
       .get('/v1/data/track/RD')
       .expect('Content-Type', /json/)
       .expect('Content-Length', '2')
-      .expect(200, done);
+      .expect(200, {}, done);
   });
   it('should yield invalid data when trying to pass a bad code at /v1/data/track/XX.', (done) => {
     request(app)

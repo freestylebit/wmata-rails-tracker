@@ -22,12 +22,12 @@ require('dotenv').config();
 require('node-jsx').install();
 
 // Set views/ directory especially for the following test suites.
-app.set('views', __dirname + '/../views');
+app.set('views', __dirname + '/../src/views');
 app.set('view engine', 'ejs');
 
 describe('Application routes', () => {
   before(() => {
-    app.use('/', require('../routes.js')(db));
+    app.use('/', require('../src/routes.js')(db));
   });
   it('should detect a valid page at site root.', (done) => {
     request(app)
@@ -59,7 +59,7 @@ describe('Application routes', () => {
 
 describe('Data routes', () => {
   before(() => {
-    app.use('/v1/data', require('../dataRoutes.js')(db));
+    app.use('/v1/data', require('../src/dataRoutes.js')(db));
   })
   it('should detect a valid JSON endpoint (metadata) at /v1/data/.', (done) => {
     request(app)

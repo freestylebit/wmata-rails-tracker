@@ -7,7 +7,7 @@ const db = {
   redis: redisMock.createClient(),
 };
 const fakeRedis = redisMock.createClient();
-const wmata = require('../../controllers/wmata.js')(db);
+const wmata = require('../../src/controllers/wmata.js')(db);
 
 describe('WMATA Controllers - ', () => {
   it('Method get_metadata() should acquire rail metadata.', (done) => {

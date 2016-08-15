@@ -4,7 +4,7 @@
   "description": "Visualizes coordinates of trains on a rail.",
   "main": "server.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- --recursive --require src/spec/helpers/chai.js ./src",
+    "test": "istanbul cover _mocha -- --recursive --require spec/helpers/chai.js ./spec",
     "lint": "eslint src"
   },
   "repository": {

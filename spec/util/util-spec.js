@@ -2,7 +2,7 @@
 const chai = require('chai');
 chai.should();
 
-const util = require('../../util/util.js');
+const util = require('../../src/util/util.js');
 
 describe('Helper function - ', () => {
   describe('Station Endpoints - ', () => {

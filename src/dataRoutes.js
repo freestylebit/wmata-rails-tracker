@@ -6,11 +6,14 @@ const _ = require('lodash');
 module.exports = (db) => {
   const router = express.Router();
 
+  // For use with JSON endpoints that have no data.
+  const defaultError = { error: 'NO DATA' };
+
   // Metadata endpoint
   router.get('/', (req, res) => {
     db.redis.get('wmata_metadata', (err, reply) => {
       if (!reply) {
-        res.status(400).json({ error: 'NO DATA' });
+        res.status(400).json(defaultError);
         return;
       }
 
@@ -21,12 +24,12 @@ module.exports = (db) => {
   // Track individual line
   router.get('/line/:code', (req, res) => {
     if (req.params.code.length > 2) {
-      res.status(404).send('Page not found');
+      res.status(404).json(defaultError);
       return;
     }
     db.redis.get(`wmata_line_${req.params.code}`, (err, reply) => {
       if (!reply) {
-        res.status(400).json({ error: 'NO DATA' });
+        res.status(400).json(defaultError);
         return;
       }
 
@@ -37,7 +40,7 @@ module.exports = (db) => {
   // Parsed data endpoint
   router.get('/track/:code', (req, res) => {
     if (req.params.code.length > 2) {
-      res.status(404).send('Page not found');
+      res.status(404).json(defaultError);
       return;
     }
 
@@ -45,7 +48,7 @@ module.exports = (db) => {
     // so we're not regenerating this dataset every time we ping the server.
     db.redis.get('wmata_realtime_status', (errorRealtime, reply) => {
       if (!reply) {
-        res.status(400).json({ error: 'NO DATA' });
+        res.status(400).json(defaultError);
         return;
       }
 
@@ -67,7 +70,7 @@ module.exports = (db) => {
       // Query the data for this line
       db.redis.get(`wmata_line_${req.params.code}`, (errorLine, lineData) => {
         if (!lineData) {
-          res.status(400).json({ error: 'NO DATA' });
+          res.status(400).json(defaultError);
           return;
         }
 

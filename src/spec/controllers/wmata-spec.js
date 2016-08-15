@@ -9,10 +9,6 @@ const db = {
 const fakeRedis = redisMock.createClient();
 const wmata = require('../../controllers/wmata.js')(db);
 
-function test() {
-  console.log('asdf');
-}
-
 describe('WMATA Controllers - ', () => {
   it('Method get_metadata() should acquire rail metadata.', (done) => {
     wmata.get_metadata(db);

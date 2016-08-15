@@ -10,7 +10,7 @@ const cron = require('node-cron');
 
 const util = require('./src/util/util.js');
 const db = require('./src/db.js');
-const wmata = require('./src/controllers/wmata.js');
+const wmata = require('./src/controllers/wmata.js')(db);
 
 let app = express();
 app.use(bodyParser.urlencoded({
@@ -55,7 +55,7 @@ cron.schedule('*/15 * * * * *', () => {
 // Helper functions
 // TODO: Move this somewhere else.
 function query_wmata() {
-  wmata.get_metadata(db, () => {
+  wmata.get_metadata(() => {
     console.log('WMATA metadata acquired');
   });
 
@@ -66,7 +66,7 @@ function query_wmata() {
   // TODO: Refactor this to properly use callbacks.
   _.map(['RD', 'BL', 'YL', 'OR', 'GR', 'SV'], (line) => {
     task = setTimeout(() => {
-      wmata.get_stations_list(db, line, () => {
+      wmata.get_stations_list(line, () => {
         console.log(`WMATA station list for ${line} acquired`);
       });
     }, delay);
@@ -74,7 +74,7 @@ function query_wmata() {
     delay += 2000;
   });
 
-  wmata.get_stations_status(db, () => {
+  wmata.get_stations_status(() => {
     console.log('WMATA real time predictions acquired');
   })
 }

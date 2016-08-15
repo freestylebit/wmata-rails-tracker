@@ -54,6 +54,14 @@ describe('Data routes', () => {
       .expect('Content-Type', /json/)
       .expect(400, {"error":"NO DATA"}, done);
   });
+  it('should yield no data at /v1/data/track.', (done) => {
+    // Reminder: Redis only accepts strings :).
+    request(app)
+      .get('/v1/data/track')
+      .expect('Content-Type', /json/)
+      .expect(404, {"error":"NO DATA"}, done);
+  });
+
   it('should yield valid JSON data when redis key is set at /v1/data/.', (done) => {
     // Reminder: Redis only accepts strings :).
     test.set('wmata_metadata', JSON.stringify(require('./fixtures/wmata_metadata.json')));

@@ -37,6 +37,11 @@ module.exports = (db) => {
     });
   });
 
+  // Make no value yield an error.
+  router.get('/track/', (req, res) => {
+    res.status(404).json(defaultError);
+  });
+
   // Parsed data endpoint
   router.get('/track/:code', (req, res) => {
     if (req.params.code.length > 2) {

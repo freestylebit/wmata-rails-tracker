@@ -10,6 +10,7 @@ const redisMock = require('redis-mock');
 const db = {
   redis: redisMock.createClient(),
 };
+const test = redisMock.createClient();
 
 chai.should();
 
@@ -31,6 +32,7 @@ describe('Application routes', () => {
   it('should detect a valid page at site root.', (done) => {
     request(app)
       .get('/')
+      .expect('Content-Type', 'text/html; charset=utf-8')
       .expect(200, done);
   });
   it('should detect an invalid page at root.', (done) => {
@@ -51,5 +53,13 @@ describe('Data routes', () => {
       .get('/v1/data')
       .expect('Content-Type', /json/)
       .expect(400, {"error":"NO DATA"}, done);
+  });
+  it('should yield valid JSON data when redis key is set at /v1/data/.', (done) => {
+    // Reminder: Redis only accepts strings :).
+    test.set('wmata_metadata', JSON.stringify(require('./fixtures/wmata_metadata.json')));
+    request(app)
+      .get('/v1/data')
+      .expect('Content-Type', /json/)
+      .expect(200, require('./fixtures/wmata_metadata.json'), done);
   });
 });

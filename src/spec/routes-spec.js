@@ -96,10 +96,22 @@ describe('Data routes', () => {
     fakeRedis.set('wmata_line_RD', JSON.stringify(require('./fixtures/wmata_line_RD.json')));
 
     request(app)
-      .get('/v1/data/track/RD/')
+      .get('/v1/data/track/RD')
       .expect('Content-Type', /json/)
       .expect('Content-Length', '2')
       .expect(200, done);
+  });
+  it('should yield invalid data when trying to pass a bad code at /v1/data/track/XX.', (done) => {
+    request(app)
+      .get('/v1/data/line/RD')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+  it('should yield invalid data when trying to pass a bad code at /v1/data/track/XX.', (done) => {
+    request(app)
+      .get('/v1/data/line/XX')
+      .expect('Content-Type', /json/)
+      .expect(400, {"error":"NO DATA"}, done);
   });
 
   it('should detect a valid page /v1/data/track/XXXX if the parameter is longer than 2.', (done) => {

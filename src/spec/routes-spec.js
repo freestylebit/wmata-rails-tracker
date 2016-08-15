@@ -65,7 +65,7 @@ describe('Data routes', () => {
     request(app)
       .get('/v1/data')
       .expect('Content-Type', /json/)
-      .expect(400, {"error":"NO DATA"}, done);
+      .expect(200, done);
   });
   it('should yield no data at /v1/data/track.', (done) => {
     // Reminder: Redis only accepts strings :).
@@ -79,7 +79,7 @@ describe('Data routes', () => {
     request(app)
       .get('/v1/data/track/RD')
       .expect('Content-Type', /json/)
-      .expect(400, done);
+      .expect(200, done);
   });
 
   it('should yield valid JSON data when redis key is set at /v1/data/.', (done) => {

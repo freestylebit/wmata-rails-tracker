@@ -11,24 +11,21 @@ const wmata = require('../../controllers/wmata.js')(db);
 
 describe('WMATA Controllers - ', () => {
   it('Method get_metadata() should acquire rail metadata.', (done) => {
-    wmata.get_metadata(db);
-
-    let value = fakeRedis.get('wmata_metadata');
-    console.log(value);
-    done();
+    wmata.get_metadata(() => {
+      let value = fakeRedis.get('wmata_metadata');
+      done();
+    });
   });
   it('Method get_stations_list() should acquire rail metadata.', (done) => {
-    wmata.get_stations_list(db);
-
-    let value = fakeRedis.get('wmata_metadata');
-    console.log(value);
-    done();
+    wmata.get_stations_list('RD', () => {
+      let value = fakeRedis.get('wmata_line_RD');
+      done();
+    });
   });
   it('Method get_stations_status() should acquire rail metadata.', (done) => {
-    wmata.get_stations_status(db);
-
-    let value = fakeRedis.get('wmata_metadata');
-    console.log(value);
-    done();
+    wmata.get_stations_status(() => {
+      let value = fakeRedis.get('wmata_metadata');
+      done();
+    });
   });
 });

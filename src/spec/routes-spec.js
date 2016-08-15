@@ -75,6 +75,13 @@ describe('Data routes', () => {
       .expect(404, {"error":"NO DATA"}, done);
   });
 
+  it('should yield invalid response when redis key is set at /v1/data/track/RD.', (done) => {
+    request(app)
+      .get('/v1/data/track/RD')
+      .expect('Content-Type', /json/)
+      .expect(400, done);
+  });
+
   it('should yield valid JSON data when redis key is set at /v1/data/.', (done) => {
     fakeRedis.set('wmata_metadata', JSON.stringify(require('./fixtures/wmata_metadata.json')));
 
@@ -93,5 +100,19 @@ describe('Data routes', () => {
       .expect('Content-Type', /json/)
       .expect('Content-Length', '2')
       .expect(200, done);
+  });
+
+  it('should detect a valid page /v1/data/track/XXXX if the parameter is longer than 2.', (done) => {
+    request(app)
+      .get('/v1/data/track/XXXX')
+      .expect('Content-Type', /json/)
+      .expect(404, {"error":"NO DATA"}, done);
+  });
+
+  it('should detect a valid page v1/data//line/XXXX if the parameter is longer than 2.', (done) => {
+    request(app)
+      .get('/v1/data/line/XXXX')
+      .expect('Content-Type', /json/)
+      .expect(404, {"error":"NO DATA"}, done);
   });
 });

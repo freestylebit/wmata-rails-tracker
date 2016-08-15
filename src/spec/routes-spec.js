@@ -107,21 +107,27 @@ describe('Data routes', () => {
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
-  it('should yield invalid data when trying to pass a bad code at /v1/data/track/XX.', (done) => {
+  it('should yield an invalid endpoint when trying to pass a bad code at /v1/data/track/XX.', (done) => {
     request(app)
       .get('/v1/data/line/XX')
       .expect('Content-Type', /json/)
       .expect(400, {"error":"NO DATA"}, done);
   });
 
-  it('should detect a valid page /v1/data/track/XXXX if the parameter is longer than 2.', (done) => {
+  it('should detect an invalid endpoint at /v1/data/track/XX if the parameter yields non-existent data.', (done) => {
+    request(app)
+      .get('/v1/data/track/XX')
+      .expect('Content-Type', /json/)
+      .expect(400, {"error":"NO DATA"}, done);
+  });
+  it('should detect an invalid endpoint at /v1/data/track/XXXX if the parameter is longer than 2.', (done) => {
     request(app)
       .get('/v1/data/track/XXXX')
       .expect('Content-Type', /json/)
       .expect(404, {"error":"NO DATA"}, done);
   });
 
-  it('should detect a valid page v1/data//line/XXXX if the parameter is longer than 2.', (done) => {
+  it('should detect a invalid endpoint at v1/data//line/XXXX if the parameter is longer than 2.', (done) => {
     request(app)
       .get('/v1/data/line/XXXX')
       .expect('Content-Type', /json/)

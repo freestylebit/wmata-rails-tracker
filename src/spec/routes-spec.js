@@ -40,6 +40,19 @@ describe('Application routes', () => {
       .get('/non-existent-route')
       .expect(404, done);
   });
+
+  it('should yield a 404 at /line.', (done) => {
+    request(app)
+      .get('/line')
+      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect(404, 'Page not found', done);
+  });
+  it('should detect a valid page /line/:color.', (done) => {
+    request(app)
+      .get('/line/RD')
+      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect(200, /WMATA Train Tracker/, done);
+  });
 });
 
 

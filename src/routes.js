@@ -12,6 +12,11 @@ module.exports = (db) => {
     });
   });
 
+  // Nullify /line requests without parameters.
+  router.get('/line', (req, res) => {
+    res.status(404).send('Page not found');
+  });
+
   // Track individual line
   router.get('/line/:code', (req, res) => {
     // TODO: Figure out why this is failing istanbul

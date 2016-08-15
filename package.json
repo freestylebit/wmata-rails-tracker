@@ -71,6 +71,7 @@
     "mocha": "^2.5.3",
     "replay": "^2.0.6",
     "should": "^9.0.2",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "winston": "^2.2.0"
   }
 }

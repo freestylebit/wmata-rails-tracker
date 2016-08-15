@@ -7,6 +7,7 @@ const path = require('path');
 const _ = require('lodash');
 const async = require('async');
 const cron = require('node-cron');
+const winston = require('winston');
 
 const util = require('./src/util/util.js');
 const db = require('./src/db.js');
@@ -42,7 +43,7 @@ query_wmata();
 
 // Kickstart the server!
 app.listen(3000, () => {
-  console.log('Go to http://localhost:3000!');
+  winston.info('Go to http://localhost:3000!');
 });
 
 
@@ -56,7 +57,7 @@ cron.schedule('*/15 * * * * *', () => {
 // TODO: Move this somewhere else.
 function query_wmata() {
   wmata.get_metadata(() => {
-    console.log('WMATA metadata acquired');
+    winston.info('WMATA metadata acquired');
   });
 
   // WMATA has set a one request per second limit on their API.
@@ -67,7 +68,7 @@ function query_wmata() {
   _.map(['RD', 'BL', 'YL', 'OR', 'GR', 'SV'], (line) => {
     task = setTimeout(() => {
       wmata.get_stations_list(line, () => {
-        console.log(`WMATA station list for ${line} acquired`);
+        winston.info(`WMATA station list for ${line} acquired`);
       });
     }, delay);
     clearInterval(task);
@@ -75,6 +76,6 @@ function query_wmata() {
   });
 
   wmata.get_stations_status(() => {
-    console.log('WMATA real time predictions acquired');
+    winston.info('WMATA real time predictions acquired');
   })
 }
